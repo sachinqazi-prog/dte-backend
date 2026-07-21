@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "nodemailer": "^9.0.3",
     "pdfkit": "^0.19.1"
   }
 }
