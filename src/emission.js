@@ -7,6 +7,7 @@ const { isValidRut } = require('./rut');
 const { buildDte } = require('./buildDte');
 const { signAndSubmit } = require('./signingService');
 const { generateInvoicePdf } = require('./pdfGenerator');
+const { sendInvoiceEmail } = require('./emailer');
 
 // In-memory stores (testing only). Replace with your DB at go-live.
 const emitted = new Map();      // orderId -> result record
@@ -72,7 +73,20 @@ async function emitForOrder(order) {
   }
 
 // Generate the actual (test-marked) PDF file — automatic, every order.
-  const { filename } = await generateInvoicePdf(dte, result);
+  // At go-live the REAL signed PDF comes back from signingService's SII
+  // call instead; this local generator stays as an internal preview tool.
+  const { filename, filepath } = await generateInvoicePdf(dte, result);
+
+  // Email it to the recipient. Best-effort: a failed send never undoes
+  // an otherwise-successful emission — the document still exists and is
+  // downloadable; we just log the problem.
+  let emailResult = { sent: false };
+  try {
+    emailResult = await sendInvoiceEmail(dte, result, filepath);
+  } catch (e) {
+    console.error(`[email] failed for order ${orderId}:`, e.message);
+    emailResult = { sent: false, error: e.message };
+  }
 
   // Accepted → this is what you'd write back onto the order's metafields.
   const rec = {
@@ -86,6 +100,7 @@ async function emitForOrder(order) {
     xmlUrl: result.xmlUrl,
     totals: dte.totales,
     recipientEmail: dte.receptor.email,
+    email: emailResult,
     at: new Date().toISOString(),
   };
   emitted.set(orderId, rec);
