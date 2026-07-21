@@ -1,0 +1,14 @@
+{
+  "name": "dte-backend",
+  "version": "0.1.0",
+  "description": "Boleta/Factura DTE backend for Shopify Chile (mock signer, swap for LibreDTE at go-live)",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "node src/test.js",
+    "start": "node src/server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "pdfkit": "^0.19.1"
+  }
+}

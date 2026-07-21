@@ -1,0 +1,52 @@
+{
+  "id": 5003,
+  "name": "#1003",
+  "email": "buyer@example.com",
+  "line_items": [
+    {
+      "title": "Sofá 2 cuerpos Mahoney pebble",
+      "sku": "SOFA-001",
+      "quantity": 1,
+      "price": "359990"
+    }
+  ],
+  "shipping_lines": [
+    {
+      "price": "0"
+    }
+  ],
+  "note_attributes": [
+    {
+      "name": "billing_documento",
+      "value": "33"
+    },
+    {
+      "name": "billing_rut",
+      "value": "76.123.456-0"
+    },
+    {
+      "name": "billing_rzn_social",
+      "value": "Acme Ingeniería SpA"
+    },
+    {
+      "name": "billing_giro",
+      "value": "Servicios de ingeniería"
+    },
+    {
+      "name": "billing_direccion",
+      "value": "Av. Providencia 1234"
+    },
+    {
+      "name": "billing_comuna",
+      "value": "Providencia"
+    },
+    {
+      "name": "billing_ciudad",
+      "value": "Santiago"
+    },
+    {
+      "name": "billing_email",
+      "value": "contabilidad@acme.cl"
+    }
+  ]
+}
